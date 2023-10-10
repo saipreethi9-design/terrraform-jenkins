@@ -27,6 +27,11 @@ pipeline {
         stage('Confirm Apply') {
             steps {
                 script {
+                    // Set the service account key as an environment variable
+                    withCredentials([file(credentialsId: 'jenkins-poc-400711', variable: 'SA_KEY')]) {
+                        // Now you can use $SA_KEY in your scripts
+                        env.SA_KEY = credentials('jenkins-poc-400711')
+                    }
                     input message: 'Proceed with apply? Please check Plan stdout carefully.', ok: 'Proceed'
                 }
             }
