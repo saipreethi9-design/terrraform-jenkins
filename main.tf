@@ -6,7 +6,7 @@ provider "google" {
 resource "google_compute_instance" "web_server" {
   name         = "gcp-web-server"
   machine_type = var.machine_type
-  zone         = "us-east1-b" # Specify the desired zone here
+  zone         = var.zone
 
   boot_disk {
     initialize_params {
