@@ -6,7 +6,7 @@ pipeline {
     }
 
     tools {
-        nodejs 'Terraform'
+        terraform 'Terraform'
     }
 
     stages {
