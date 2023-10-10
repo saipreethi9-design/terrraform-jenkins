@@ -39,24 +39,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply'
-            }
-        }
-
-        stage('Confirm Destroy') {
-            steps {
-                script {
-                    input message: 'Proceed with destroy? This will permanently delete resources.', ok: 'Destroy'
-                }
-            }
-        }
-
-        stage('Terraform Destroy') {
-            when {
-                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
-            }
-            steps {
-                sh 'terraform destroy'
+                sh 'terraform apply -auto-approve tfplan'
             }
         }
     }
