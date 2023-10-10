@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TF_VAR_project_id = 'jenkins-poc-400711'
+         GCP_PROJECT_ID = 'jenkins-poc-400711'
     }
 
     stages {
@@ -29,8 +29,8 @@ pipeline {
                 script {
                     // Set the service account key as an environment variable
                     withCredentials([file(credentialsId: 'jenkins-poc-400711', variable: 'SA_KEY')]) {
-                        // Now you can use $SA_KEY in your scripts
-                        env.SA_KEY = credentials('jenkins-poc-400711')
+                        sh "gcloud auth activate-service-account --key-file=${SA_KEY}"
+                        sh "gcloud config set project ${GCP_PROJECT_ID}"
                     }
                     input message: 'Proceed with apply? Please check Plan stdout carefully.', ok: 'Proceed'
                 }
