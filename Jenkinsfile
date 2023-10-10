@@ -5,6 +5,10 @@ pipeline {
          GCP_PROJECT_ID = 'jenkins-poc-400711'
     }
 
+    tools {
+        nodejs 'Terraform'
+    }
+
     stages {
         stage('Checkout') {
             steps {
