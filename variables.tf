@@ -10,7 +10,7 @@ variable "region" {
 
 variable "zone" {
   description = "The Google Cloud zone"
-  default     = "us-central-a"
+  default     = "us-central1-a"
 }
 
 variable "machine_type" {
