@@ -39,7 +39,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply -auto-approve tfplan'
+                sh 'terraform apply'
             }
         }
 
@@ -56,7 +56,7 @@ pipeline {
                 expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
             }
             steps {
-                sh 'terraform destroy -auto-approve'
+                sh 'terraform destroy'
             }
         }
     }
