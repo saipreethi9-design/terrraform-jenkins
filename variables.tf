@@ -1,6 +1,5 @@
 variable "project" {
   description = "GCP project ID"
-  default     = "jenkins-poc-400711"
 }
 
 variable "region" {
