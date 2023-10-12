@@ -5,12 +5,12 @@ variable "project" {
 
 variable "region" {
   description = "The Google Cloud region"
-  default     = "us-east1"
+  default     = "us-central1"
 }
 
 variable "zone" {
   description = "The Google Cloud zone"
-  default     = "us-east1-b"
+  default     = "us-central1-a"
 }
 
 variable "machine_type" {
