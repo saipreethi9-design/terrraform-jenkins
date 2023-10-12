@@ -17,25 +17,28 @@ pipeline {
             }
         }
 
-        stage('Authentication') {
+       stage('Authentication') {
             steps {
                 script {
                     def projectId
-
+        
                     if (params.TARGET_GCP_PROJECT == 'jenkins-poc-400711') {
                         projectId = 'jenkins-poc-400711'
                     } else {
                         projectId = 'sixth-oxygen-400306'
                     }
-                    
-                    // Set the GOOGLE_CREDENTIALS environment variable
-                    env.GOOGLE_CREDENTIALS = credentials("${projectId}")
-
+        
+                    // Load the service account JSON key from Jenkins credentials
+                    withCredentials([file(credentialsId: "${projectId}", variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
+                        env.GOOGLE_CREDENTIALS = readFile("${SERVICE_ACCOUNT_KEY_FILE}")
+                    }
+        
                     // Set the GCP_PROJECT_ID environment variable
                     env.GCP_PROJECT_ID = projectId
                 }
             }
         }
+
 
         stage('Terraform Init') {
             steps {
