@@ -1,7 +1,7 @@
 pipeline {
     agent any
     // environment {
-    //      GCP_PROJECT_ID = 'jenkins-poc-400711'
+         GCP_PROJECT_ID = 'jenkins-poc-400711'
     //      GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
     // }
 
