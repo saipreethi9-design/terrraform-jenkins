@@ -31,6 +31,9 @@ pipeline {
                         googleCredentials = env.SERVICE_ACCOUNT_KEY_B
                     }
 
+                    // Print the GOOGLE_CREDENTIALS content to the console for debugging
+                    echo "GOOGLE_CREDENTIALS content: ${googleCredentials}"
+
                     // Set the GOOGLE_CREDENTIALS environment variable
                     env.GOOGLE_CREDENTIALS = googleCredentials
 
