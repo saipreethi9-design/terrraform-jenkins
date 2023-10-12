@@ -11,7 +11,7 @@ pipeline {
     }
     environment {
         GCP_PROJECT_ID = 'jenkins-poc-400711'
-        GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
+        // GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
     }
 
     tools {
@@ -37,6 +37,7 @@ pipeline {
                     env.GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
                 }   
             }
+        }
         stage('Terraform Init') {
             steps {
                 sh 'terraform init'
