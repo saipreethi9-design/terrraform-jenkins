@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    // environment {
+     environment {
          GCP_PROJECT_ID = 'jenkins-poc-400711'
-    //      GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
-    // }
+         // GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
+    }
 
     tools {
         terraform 'Terraform'
