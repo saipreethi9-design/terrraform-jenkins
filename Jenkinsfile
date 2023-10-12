@@ -28,16 +28,22 @@ pipeline {
             steps {
                 script {
                     def projectId
-                    if(params.jenkins-poc-400711) {
+                    if (params.TARGET_GCP_PROJECT == 'jenkins-poc-400711') {
                         projectId = 'jenkins-poc-400711'
+                        env.GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
+                    }
+                    else if (params.TARGET_GCP_PROJECT == 'sixth-oxygen-400306') {
+                        projectId = 'sixth-oxygen-400306'
+                        env.GOOGLE_CREDENTIALS = credentials('sixth-oxygen-400306')
                     }
                     else {
-                        projectId = 'sixth-oxygen-40030'
+                        error("Invalid TARGET_GCP_PROJECT parameter value")
                     }
-                    env.GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
-                }   
+                    env.GCP_PROJECT_ID = projectId
+                }
             }
         }
+
         stage('Terraform Init') {
             steps {
                 sh 'terraform init'
@@ -63,10 +69,12 @@ pipeline {
         // }
         stage('Terraform Apply') {
             steps {
+                script {
+                    env.GCP_PROJECT_ID = projectId
+                }
                 sh 'terraform apply --auto-approve'
             }
         }
-    }
 
     post {
         always {
