@@ -1,17 +1,17 @@
 pipeline {
     agent any
     parameters {
-            choice(
+        choice(
             name: 'TARGET_GCP_PROJECT',
             choices: [
                 'jenkins-poc-400711',
                 'sixth-oxygen-400306'
             ]
-            )
-        }
-     environment {
-         GCP_PROJECT_ID = 'jenkins-poc-400711'
-         GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
+        )
+    }
+    environment {
+        GCP_PROJECT_ID = 'jenkins-poc-400711'
+        GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
     }
 
     tools {
@@ -29,7 +29,6 @@ pipeline {
                 sh 'terraform init'
             }
         }
-    }
         stage('Terraform Plan') {
             steps {
                 sh 'terraform plan'
@@ -40,7 +39,6 @@ pipeline {
         //         script {
         //             // Set the service account key as an environment variable
         //             withCredentials([file(credentialsId: 'jenkins-poc-400711', variable: 'SA_KEY')]) {
-                        
         //                 // Set the service account for this session
         //                 sh "gcloud auth activate-service-account --key-file=${SA_KEY}"
         //                 sh "gcloud config set project ${GCP_PROJECT_ID}"
@@ -49,7 +47,6 @@ pipeline {
         //         }
         //     }
         // }
-
         stage('Terraform Apply') {
             steps {
                 sh 'terraform apply --auto-approve'
@@ -62,3 +59,4 @@ pipeline {
             sh 'rm -rf .terraform terraform.tfstate*'
         }
     }
+}
