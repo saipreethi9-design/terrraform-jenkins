@@ -17,29 +17,28 @@ pipeline {
             }
         }
 
-       stage('Authentication') {
+        stage('Authentication') {
             steps {
                 script {
                     def projectId
                     def googleCredentials
-        
+
                     if (params.TARGET_GCP_PROJECT == 'jenkins-poc-400711') {
                         projectId = 'jenkins-poc-400711'
-                        googleCredentials = credentials('jenkins-poc-400711')
+                        googleCredentials = env.SERVICE_ACCOUNT_KEY_A
                     } else {
                         projectId = 'sixth-oxygen-400306'
-                        googleCredentials = credentials('sixth-oxygen-400306')
+                        googleCredentials = env.SERVICE_ACCOUNT_KEY_B
                     }
-        
-                    withCredentials([file(credentialsId: googleCredentials, variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
-                        env.GOOGLE_CREDENTIALS = readFile("${SERVICE_ACCOUNT_KEY_FILE}")
-                    }
-        
+
+                    // Set the GOOGLE_CREDENTIALS environment variable
+                    env.GOOGLE_CREDENTIALS = googleCredentials
+
+                    // Set the GCP_PROJECT_ID environment variable
                     env.GCP_PROJECT_ID = projectId
                 }
             }
         }
-
 
         stage('Terraform Init') {
             steps {
