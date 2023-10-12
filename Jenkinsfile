@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    environment {
-         GCP_PROJECT_ID = 'jenkins-poc-400711'
-         GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
-    }
+    // environment {
+    //      GCP_PROJECT_ID = 'jenkins-poc-400711'
+    //      GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
+    // }
 
     tools {
         terraform 'Terraform'
@@ -17,9 +17,18 @@ pipeline {
         }
         stage('Terraform Init') {
             steps {
+                script {
+                    // Set the service account key as an environment variable
+                    withCredentials([file(credentialsId: 'jenkins-poc-400711', variable: 'SA_KEY')]) {
+                        
+                        // Set the service account for this session
+                        sh "gcloud auth activate-service-account --key-file=${SA_KEY}"
+                        sh "gcloud config set project ${GCP_PROJECT_ID}"
+                    }
                 sh 'terraform init'
             }
         }
+    }
         stage('Terraform Plan') {
             steps {
                 sh 'terraform plan'
