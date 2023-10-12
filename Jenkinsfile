@@ -24,6 +24,19 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Authentication'){
+            steps {
+                script {
+                    def projectId
+                    if(params.jenkins-poc-400711) {
+                        projectId = 'jenkins-poc-400711'
+                    }
+                    else {
+                        projectId = 'sixth-oxygen-40030'
+                    }
+                    env.GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
+                }   
+            }
         stage('Terraform Init') {
             steps {
                 sh 'terraform init'
