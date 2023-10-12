@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Terraform Plan') {
             steps {
-                sh 'terraform plan -out=tfplan'
+                sh 'terraform plan'
             }
         }
         stage('Confirm Apply') {
@@ -38,7 +38,7 @@ pipeline {
         }
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply -auto-approve tfplan'
+                sh 'terraform apply'
             }
         }
     }
