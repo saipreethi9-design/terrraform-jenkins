@@ -62,4 +62,3 @@ pipeline {
             sh 'rm -rf .terraform terraform.tfstate*'
         }
     }
-}
