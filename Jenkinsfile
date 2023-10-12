@@ -1,5 +1,14 @@
 pipeline {
     agent any
+    parameters {
+            choice(
+            name: 'TARGET_GCP_PROJECT',
+            choices: [
+                'jenkins-poc-400711',
+                'sixth-oxygen-400306'
+            ]
+            )
+        }
      environment {
          GCP_PROJECT_ID = 'jenkins-poc-400711'
          GOOGLE_CREDENTIALS = credentials('jenkins-poc-400711')
