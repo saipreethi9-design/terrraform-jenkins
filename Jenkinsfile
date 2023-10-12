@@ -10,8 +10,8 @@ pipeline {
         )
     }
 	environment {
-		GCP_PROJECT_ID = params.TARGET_GCP_PROJECT
-		GOOGLE_CREDENTIALS = credentials(params.TARGET_GCP_PROJECT)
+		GCP_PROJECT_ID = "${params.TARGET_GCP_PROJECT}"
+		GOOGLE_CREDENTIALS = credentials("${params.TARGET_GCP_PROJECT}")
 	}
 
     stages {
