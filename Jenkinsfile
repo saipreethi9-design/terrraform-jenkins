@@ -48,15 +48,15 @@ pipeline {
                         sh "gcloud auth activate-service-account --key-file=${SA_KEY}"
                         sh "gcloud config set project ${GCP_PROJECT_ID}"
                     }
-                    
+                }    
                 sh 'terraform apply --auto-approve'
             }
         }
     }
+
     post {
         always {
             sh 'rm -rf .terraform terraform.tfstate*'
         }
     }
-}
 }
