@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
          GCP_PROJECT_ID = 'jenkins-poc-400711'
-         SA_KEY = credentials('jenkins-poc-400711')
     }
 
     tools {
