@@ -24,6 +24,7 @@ pipeline {
                 checkout scm
             }
         }
+    }    
         stage('Authentication'){
             steps {
                 script {
