@@ -24,20 +24,20 @@ pipeline {
                 sh 'terraform plan'
             }
         }
-        stage('Confirm Apply') {
-            steps {
-                script {
-                    // Set the service account key as an environment variable
-                    withCredentials([file(credentialsId: 'jenkins-poc-400711', variable: 'SA_KEY')]) {
+        // stage('Confirm Apply') {
+        //     steps {
+        //         script {
+        //             // Set the service account key as an environment variable
+        //             withCredentials([file(credentialsId: 'jenkins-poc-400711', variable: 'SA_KEY')]) {
                         
-                        // Set the service account for this session
-                        sh "gcloud auth activate-service-account --key-file=${SA_KEY}"
-                        sh "gcloud config set project ${GCP_PROJECT_ID}"
-                    }
-                    input message: 'Proceed with apply? Please check Plan stdout carefully.', ok: 'Proceed'
-                }
-            }
-        }
+        //                 // Set the service account for this session
+        //                 sh "gcloud auth activate-service-account --key-file=${SA_KEY}"
+        //                 sh "gcloud config set project ${GCP_PROJECT_ID}"
+        //             }
+        //             input message: 'Proceed with apply? Please check Plan stdout carefully.', ok: 'Proceed'
+        //         }
+        //     }
+        // }
 
         stage('Terraform Apply') {
             steps {
