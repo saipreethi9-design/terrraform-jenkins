@@ -30,7 +30,7 @@ pipeline {
                     // Set the service account key as an environment variable
                     withCredentials([file(credentialsId: 'jenkins-poc-400711', variable: 'SA_KEY')]) {
                         // Authenticate using application default credentials
-                        sh "gcloud auth application-default login"
+                        sh "gcloud auth application-default login --quiet"
                         
                         // Set the service account for this session
                         sh "gcloud auth activate-service-account --key-file=${SA_KEY}"
