@@ -9,10 +9,10 @@ pipeline {
             ]
         )
     }
-	environment {
-		GCP_PROJECT_ID = "${params.TARGET_GCP_PROJECT}"
-		GOOGLE_CREDENTIALS = credentials("${params.TARGET_GCP_PROJECT}")
-	}
+    environment {
+        GCP_PROJECT_ID = "${params.TARGET_GCP_PROJECT}"
+        GOOGLE_CREDENTIALS = credentials("${params.TARGET_GCP_PROJECT}")
+    }
 
     stages {
         stage('Checkout') {
@@ -20,29 +20,6 @@ pipeline {
                 checkout scm
             }
         }
-
-       // stage('Authentication') {
-       //      steps {
-       //          script {
-       //              def projectId
-        
-       //              if (params.TARGET_GCP_PROJECT == 'jenkins-poc-400711') {
-       //                  projectId = 'jenkins-poc-400711'
-       //              } else {
-       //                  projectId = 'sixth-oxygen-400306'
-       //              }
-        
-       //              // Load the service account JSON key from Jenkins credentials
-       //              withCredentials([file(credentialsId: "${projectId}", variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
-       //                  env.GOOGLE_CREDENTIALS = readFile("${SERVICE_ACCOUNT_KEY_FILE}")
-       //              }
-        
-       //              // Set the GCP_PROJECT_ID environment variable
-       //              env.GCP_PROJECT_ID = projectId
-       //          }
-       //      }
-       //  }
-
 
         stage('Terraform Init') {
             steps {
@@ -52,13 +29,13 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                sh 'terraform plan'
+                sh 'terraform plan -var="project=${params.TARGET_GCP_PROJECT}"'
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply --auto-approve'
+                sh 'terraform apply --auto-approve -var="project=${params.TARGET_GCP_PROJECT}"'
             }
         }
     }
