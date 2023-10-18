@@ -15,6 +15,12 @@ pipeline {
     }
 
     stages {
+        stage('Print GCP_PROJECT_ID') {
+            steps {
+                sh 'echo "GCP_PROJECT_ID: $GCP_PROJECT_ID"'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -29,13 +35,13 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                sh "terraform plan -var='project=${env.GCP_PROJECT_ID}'"
+                sh "terraform plan -var='project=${GCP_PROJECT_ID}'"
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                sh "terraform apply --auto-approve -var='project=${env.GCP_PROJECT_ID}'"
+                sh "terraform apply --auto-approve -var='project=${GCP_PROJECT_ID}'"
             }
         }
     }
