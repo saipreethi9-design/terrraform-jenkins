@@ -29,13 +29,13 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                sh "terraform plan -var='project=${params.TARGET_GCP_PROJECT}'"
+                sh "terraform plan -var='project=${env.GCP_PROJECT_ID}'"
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                sh "terraform apply --auto-approve -var='project=${params.TARGET_GCP_PROJECT}'"
+                sh "terraform apply --auto-approve -var='project=${env.GCP_PROJECT_ID}'"
             }
         }
     }
