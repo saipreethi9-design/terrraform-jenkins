@@ -4,8 +4,8 @@ pipeline {
         choice(
             name: 'TARGET_GCP_PROJECT',
             choices: [
-                'jenkins-poc-400711',
-                'sixth-oxygen-400306'
+                'bold-catfish-402405',
+                'jenkins-poc-402417'
             ]
         )
     }
