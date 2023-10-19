@@ -11,7 +11,7 @@ pipeline {
     }
     environment {
         GCP_PROJECT_ID = "${params.TARGET_GCP_PROJECT}"
-        GOOGLE_CREDENTIALS = credentials("${params.TARGET_GCP_PROJECT}")
+        // GOOGLE_CREDENTIALS = credentials("${params.TARGET_GCP_PROJECT}")
     }
 
     stages {
@@ -29,13 +29,13 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                sh "terraform plan -var='project=${params.TARGET_GCP_PROJECT}'"
+                sh "terraform plan -var='project=${GCP_PROJECT_ID}'"
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                sh "terraform apply --auto-approve -var='project=${params.TARGET_GCP_PROJECT}'"
+                sh "terraform apply --auto-approve -var='project=${GCP_PROJECT_ID}'"
             }
         }
     }
