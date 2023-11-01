@@ -5,8 +5,7 @@ pipeline {
             name: 'TARGET_GCP_PROJECT',
             choices: [
                 'bold-catfish-402405',
-                'jenkins-poc-402417'    
-                
+                'jenkins-poc-402417'           
             ]
         )
     }
