@@ -6,6 +6,7 @@ pipeline {
             choices: [
                 'bold-catfish-402405',
                 'jenkins-poc-402417'
+                
             ]
         )
     }
