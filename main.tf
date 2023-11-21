@@ -19,3 +19,11 @@ resource "google_compute_instance" "web_server" {
     access_config {}
   }
 }
+
+resource "google_artifact_registry_repository" "web_server_repository" {
+  repository_id   = "terraform-jenkins-repo"
+  location        = var.region
+  project         = var.project
+  format          = "DOCKER"
+  description     = "Artifact Registry repository for the web server"
+}
