@@ -21,7 +21,7 @@ resource "google_compute_instance" "web_server" {
 }
 
 resource "google_artifact_registry_repository" "web_server_repository" {
-  repository_id   = "terraform-jenkins-repo"
+  repository_id   = "jenkins-repo"
   location        = var.region
   project         = var.project
   format          = "DOCKER"
