@@ -35,7 +35,19 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                sh "terraform apply --auto-approve -var='project=${params.TARGET_GCP_PROJECT}'"
+                script {
+                    def userInput = input(
+                        id: 'userInput', message: "Proceed with apply? Please, check Plan stdout carefully.",
+                        parameters: [choice(choices: ['Proceed', 'Abort'], description: 'Select action', name: 'ACTION')]
+                    )
+
+                    if (userInput.ACTION == 'Proceed') {
+                        sh "terraform apply --auto-approve -var='project=${params.TARGET_GCP_PROJECT}'"
+                    } else {
+                        echo 'Terraform apply aborted by the user.'
+                        currentBuild.result = 'ABORTED'
+                    }
+                }
             }
         }
     }
