@@ -41,7 +41,7 @@ pipeline {
                         parameters: [choice(choices: ['Proceed', 'Abort'], description: 'Select action', name: 'ACTION')]
                     )
 
-                    if (userInput.ACTION == 'Proceed') {
+                    if (userInput['ACTION'] == 'Proceed') {
                         sh "terraform apply --auto-approve -var='project=${params.TARGET_GCP_PROJECT}'"
                     } else {
                         echo 'Terraform apply aborted by the user.'
