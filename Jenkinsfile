@@ -8,8 +8,7 @@ pipeline {
                 'bold-catfish-402405'
             ]
         )
-    }
-    
+    } 
     environment {
         GCP_PROJECT_ID = "${params.TARGET_GCP_PROJECT}"
         GOOGLE_CREDENTIALS = credentials("${params.TARGET_GCP_PROJECT}")
